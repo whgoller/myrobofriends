@@ -7,16 +7,19 @@ import '../containers/App.css'
 
 function App() {
 
+    // state 
     const [robots, setRobots] = useState([]);
     const [searchfield, setSearchField] = useState("");
+    const [count, setCount] = useState(0);
 
-    // this will run every time the app renders 
-    // this is a special function that is run automatically (it's part of the react lifecycle)
+    // useEffect will run every time the app renders, but will only run after the first render because of the second parameter of an empty [].
+    // useEffect is a special function that is run automatically (it's part of the react lifecycle)
     // we pass the optional array because we are setting a state in the function.  we give it an empty array which is a shortcut for the componentDidMount function. 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => response.json())
             .then(users => setRobots(users));
+        console.log(count);
     }, []);
 
     const onSearchChange = (event) => {
@@ -32,6 +35,7 @@ function App() {
         (
             <div className="tc">
                 <h1 className="f1">RoboFriends</h1>
+                <button onClick={() => setCount(count + 1)}>Click Me!</button>
                 <SearchBox searchChange={onSearchChange} />
                 <Scroll>
                     <ErrorBoundary>
