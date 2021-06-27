@@ -12,10 +12,12 @@ import 'tachyons';
 
 const store = createStore(searchRobots)
 
-// Hello is the class and the greating is a property object accessible in the Hello.js file as .prop
+// we don't really want to send the store object down to all the smaller components, so we will wrap our <App /> componenet in a Provider componenet and pass the store to the provider componenet. the Provider componenet will take care of passing down the store to all the other components down the component tree from the app.
 ReactDOM.render(
   <React.StrictMode>
-    <App store={store} />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
